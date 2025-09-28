@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Study Spot Quiz</title>
+  <!-- Include PapaParse -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <!-- Include your script -->
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <h1>Welcome to the Lock in Locator!</h1>
+
+  <form id="quiz">
+    
+    /* wifi: parseFloat(document.getElementById("WiFi?").value),
+        outside: parseFloat(document.getElementById("Outside?").value),
+        on_campus: parseFloat(document.getElementById("On Campus").value),
+        noise: parseFloat(document.getElementById("Noise").value),
+        group: parseFloat(document.getElementById("Group?").value),
+        coffee: parseFloat(document.getElementById("Coffee").value),
+        food: parseFloat(document.getElementById("Food").value),
+        outlet: parseFloat(document.getElementById("Outlet Availability").value),
+        desk: parseFloat(document.getElementById("Desk").value),
+        cozy_or_modern: parseFloat(document.getElementById("Cozy vs. Scholarly").value),
+        aesthetic: parseFloat(document.getElementById("Aesthetic Appeal").value),*/
+   
+    <label for="WiFi?">WiFi (0 = No, 1 = Yes):</label>
+    <input type="number" id="WiFi?" min="0" max="1"><br>
+
+    <label for="Outside?">Outside seating (0 = No, 1 = Yes):</label>
+    <input type="number" id="Outside?" min="0" max="1"><br>
+
+    <!-- Repeat for all other quiz fields -->
+    <button type="submit">Find Spots</button>
+  </form>
+
+  <h2>Top Study Spots</h2>
+  <div id="results"></div>
+</body>
+</html>
