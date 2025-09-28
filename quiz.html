@@ -24,9 +24,8 @@
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:var(--ink);
       background:
-        radial-gradient(1200px 900px at 10% -10%, rgba(6,39,31,.15), transparent 60%),
-        radial-gradient(1400px 900px at 100% 0%, rgba(16,79,58,.12), transparent 60%),
-        linear-gradient(0deg, #fafffb, #f7fffb);
+        linear-gradient(135deg, #0E392B 0%, #1B6A53 100%);
+      /* #1B6A53 is a lighter shade for gradient effect */
     }
     .wrap{ max-width:960px; margin:40px auto; padding:24px; }
     .card{
@@ -57,11 +56,12 @@
     }
     .pill:hover{ transform:translateY(-1px); box-shadow:0 6px 16px rgba(6,39,31,.12); }
     .pill input{ position:absolute; inset:0; opacity:0; cursor:pointer; }
-    .pill[data-checked=\"true\"]{
-      background:linear-gradient(180deg, var(--green-700), var(--green-900));
-      color:#fff; border-color:var(--gold);
-      box-shadow:0 8px 20px rgba(6,39,31,.25), inset 0 0 0 1px rgba(201,180,88,.55);
-    }
+    .pill[data-checked="true"]{
+      background:linear-gradient(180deg, #B6925A, #B6925A 80%, var(--green-900));
+      color:#fff; border-color:#B6925A;
+      box-shadow:0 8px 20px rgba(182,146,90,.25), inset 0 0 0 2px #B6925A;
+      outline: 3px solid #B6925A;
+      filter: brightness(1.08);
 
     /* Submit button */
     button{
@@ -92,7 +92,7 @@
         <h1>Find your perfect study spot at William & Mary</h1>
         <p>Binary prefs, golden results: click choices below, then we’ll match you to campus study spots.</p>
       </div>
-      <img alt="crest leaf" src="data:image/svg+xml;utf8,
+      <img alt="logo" src="lock in locator logo.jpeg",
         <svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'>
           <defs>
             <linearGradient id='g' x1='0' x2='0' y1='0' y2='1'>
@@ -226,7 +226,14 @@
     // helper: decorate pills when selected
     function syncPillStates(container){
       const labels = container.querySelectorAll('.pill');
-      labels.forEach(l => l.dataset.checked = l.querySelector('input').checked ? 'true' : 'false');
+        labels.forEach(l => {
+          l.dataset.checked = l.querySelector('input').checked ? 'true' : 'false';
+          if (l.querySelector('input').checked) {
+            l.classList.add('pressed');
+          } else {
+            l.classList.remove('pressed');
+          }
+        });
     }
     // initialize pill behavior (event delegation)
     document.addEventListener('change', (e)=>{
