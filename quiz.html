@@ -1,0 +1,60 @@
+#This page is for the Quiz
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>package-lock.json Quiz</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; }
+        .question { margin-bottom: 1.5em; }
+        .result { font-weight: bold; margin-top: 1em; }
+        button { margin-top: 1em; }
+    </style>
+</head>
+<body>
+    <h1>Quiz: Understanding package-lock.json</h1>
+    <form id="quizForm">
+        <div class="question">
+            <label>1. What is the primary purpose of <code>package-lock.json</code>?</label><br>
+            <input type="radio" name="q1" value="a"> To lock the version of Node.js used<br>
+            <input type="radio" name="q1" value="b"> To ensure consistent dependency versions<br>
+            <input type="radio" name="q1" value="c"> To store environment variables<br>
+        </div>
+        <div class="question">
+            <label>2. Which command automatically updates <code>package-lock.json</code>?</label><br>
+            <input type="radio" name="q2" value="a"> npm install<br>
+            <input type="radio" name="q2" value="b"> npm start<br>
+            <input type="radio" name="q2" value="c"> npm run build<br>
+        </div>
+        <div class="question">
+            <label>3. True or False: <code>package-lock.json</code> should be committed to version control.</label><br>
+            <input type="radio" name="q3" value="a"> True<br>
+            <input type="radio" name="q3" value="b"> False<br>
+        </div>
+        <div class="question">
+            <label>4. What information does <code>package-lock.json</code> contain?</label><br>
+            <input type="radio" name="q4" value="a"> Only direct dependencies<br>
+            <input type="radio" name="q4" value="b"> All dependencies and their exact versions<br>
+            <input type="radio" name="q4" value="c"> Only scripts<br>
+        </div>
+        <button type="button" onclick="checkAnswers()">Submit</button>
+        <div class="result" id="result"></div>
+    </form>
+    <script>
+        function checkAnswers() {
+            const answers = {
+                q1: 'b',
+                q2: 'a',
+                q3: 'a',
+                q4: 'b'
+            };
+            let score = 0;
+            for (let q in answers) {
+                const selected = document.querySelector(`input[name="${q}"]:checked`);
+                if (selected && selected.value === answers[q]) score++;
+            }
+            document.getElementById('result').textContent = `You scored ${score} out of 4.`;
+        }
+    </script>
+</body>
+</html>
