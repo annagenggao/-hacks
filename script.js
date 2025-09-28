@@ -1,6 +1,3 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-<script src="script.js"></script>
-
 let studySpots = [];
 Papa.parse("study_spots.csv", {
     download: true,
@@ -16,17 +13,17 @@ document.getElementById("quiz").onsubmit = function(e) {
     e.preventDefault();
 
     const userAnswers = {
-        wifi: parseFloat(document.getElementById("WiFi?").value),
-        outside: parseFloat(document.getElementById("Outside?").value),
-        on_campus: parseFloat(document.getElementById("On Campus").value),
-        noise: parseFloat(document.getElementById("Noise").value),
-        group: parseFloat(document.getElementById("Group?").value),
-        coffee: parseFloat(document.getElementById("Coffee").value),
-        food: parseFloat(document.getElementById("Food").value),
-        outlet: parseFloat(document.getElementById("Outlet Availability").value),
-        desk: parseFloat(document.getElementById("Desk").value),
-        cozy_or_modern: parseFloat(document.getElementById("Cozy vs. Scholarly").value),
-        aesthetic: parseFloat(document.getElementById("Aesthetic Appeal").value),
+        wifi: parseFloat(document.getElementById("wifi").value),
+        outside: parseFloat(document.getElementById("outside").value),
+        on_campus: parseFloat(document.getElementById("on_campus").value),
+        noise: parseFloat(document.getElementById("noise").value),
+        group: parseFloat(document.getElementById("group").value),
+        coffee: parseFloat(document.getElementById("coffee").value),
+        food: parseFloat(document.getElementById("food").value),
+        outlet: parseFloat(document.getElementById("outlet").value),
+        desk: parseFloat(document.getElementById("desk").value),
+        cozy_or_modern: parseFloat(document.getElementById("cozy_or_modern").value),
+        aesthetic: parseFloat(document.getElementById("aesthetic").value),
     };
 
     const topSpots = findBestSpots(studySpots, userAnswers);
