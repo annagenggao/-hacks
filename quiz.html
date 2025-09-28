@@ -1,60 +1,352 @@
-#This page is for the Quiz
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>package-lock.json Quiz</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 2em; }
-        .question { margin-bottom: 1.5em; }
-        .result { font-weight: bold; margin-top: 1em; }
-        button { margin-top: 1em; }
-    </style>
+  <meta charset="utf-8" />
+  <title>Lock-In Locator — W&M Study Spot Quiz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Darker green + gold aesthetic -->
+  <style>
+    :root{
+      --green-950:#06271F; /* darker */
+      --green-900:#0B3D2E;
+      --green-800:#104F3A;
+      --green-700:#166148;
+      --green-600:#1D7556;
+      --green-100:#E8F5EF;
+      --gold:#C9B458;
+      --gold-700:#B29E4E;
+      --bg:#f6fff9;
+      --ink:#0e1a15;
+    }
+    * { box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 900px at 10% -10%, rgba(6,39,31,.15), transparent 60%),
+        radial-gradient(1400px 900px at 100% 0%, rgba(16,79,58,.12), transparent 60%),
+        linear-gradient(0deg, #fafffb, #f7fffb);
+    }
+    .wrap{ max-width:960px; margin:40px auto; padding:24px; }
+    .card{
+      background:#fff; border:1px solid #dfeee6; border-radius:18px; padding:20px;
+      box-shadow: 0 12px 36px rgba(6,39,31,.08);
+    }
+    header h1{ margin:6px 0 6px; font-size:2rem; color:var(--green-950); letter-spacing:.2px; }
+    header p{ margin:0; color:#2c5f4e }
+    .badge{
+      display:inline-block;
+      background: linear-gradient(180deg, var(--green-800), var(--green-950));
+      color:#fff; padding:6px 12px; border-radius:999px; font-weight:700; font-size:.9rem;
+      box-shadow: 0 8px 22px rgba(6,39,31,.28); border:1px solid rgba(201,180,88,.45);
+    }
+    .grid{ display:grid; gap:18px; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); }
+    fieldset{ border:none; margin:0; padding:0; }
+    .q{ border:1px solid #deefe6; border-radius:14px; padding:14px; background:#fbfffd; }
+    .title{ font-weight:800; color:var(--green-900); display:block; margin-bottom:8px; }
+    .hint{ font-size:.85rem; color:#3f6658; }
+
+    /* Pill options */
+    .options{ display:flex; flex-wrap:wrap; gap:10px; }
+    .pill{
+      position:relative; display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 14px; border-radius:999px; cursor:pointer; user-select:none;
+      background:#f3fbf7; border:1px solid #deefe6; font-weight:700; color:var(--green-900);
+      transition:.15s transform ease, .15s box-shadow ease, .15s background ease;
+    }
+    .pill:hover{ transform:translateY(-1px); box-shadow:0 6px 16px rgba(6,39,31,.12); }
+    .pill input{ position:absolute; inset:0; opacity:0; cursor:pointer; }
+    .pill[data-checked=\"true\"]{
+      background:linear-gradient(180deg, var(--green-700), var(--green-900));
+      color:#fff; border-color:var(--gold);
+      box-shadow:0 8px 20px rgba(6,39,31,.25), inset 0 0 0 1px rgba(201,180,88,.55);
+    }
+
+    /* Submit button */
+    button{
+      background:linear-gradient(180deg, var(--gold), var(--gold-700));
+      border:1px solid rgba(6,39,31,.35);
+      color:#1b1b1b; padding:14px 20px; border-radius:12px; font-weight:800;
+      cursor:pointer; box-shadow:0 10px 24px rgba(185,163,79,.28);
+    }
+    button:disabled{ filter:grayscale(40%); opacity:.6; cursor:not-allowed; }
+
+    .pill-mini{
+      display:inline-block; padding:4px 10px; border-radius:999px;
+      background:#eef9f3; color:#1e7d5c; margin-right:6px; font-size:.8rem;
+      border:1px solid #deefe6;
+    }
+    .results{ margin-top:20px; }
+    .result-card{ border:1px solid #deefe6; border-radius:14px; padding:14px; background:#fff; }
+    .result-card h3{ margin:0 0 6px 0; color:var(--green-950); }
+    .score{ font-weight:800; color:var(--gold-700); }
+    footer{ margin-top:30px; color:#466b5c; font-size:.9rem; }
+  </style>
 </head>
 <body>
-    <h1>Quiz: Understanding package-lock.json</h1>
-    <form id="quizForm">
-        <div class="question">
-            <label>1. What is the primary purpose of <code>package-lock.json</code>?</label><br>
-            <input type="radio" name="q1" value="a"> To lock the version of Node.js used<br>
-            <input type="radio" name="q1" value="b"> To ensure consistent dependency versions<br>
-            <input type="radio" name="q1" value="c"> To store environment variables<br>
+  <div class="wrap">
+    <header class="card" style="display:flex; gap:16px; align-items:center; justify-content:space-between;">
+      <div>
+        <div class="badge">Lock-In Locator</div>
+        <h1>Find your perfect study spot at William & Mary</h1>
+        <p>Binary prefs, golden results: click choices below, then we’ll match you to campus study spots.</p>
+      </div>
+      <img alt="crest leaf" src="data:image/svg+xml;utf8,
+        <svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'>
+          <defs>
+            <linearGradient id='g' x1='0' x2='0' y1='0' y2='1'>
+              <stop offset='0%' stop-color='%23104F3A'/><stop offset='100%' stop-color='%2306271F'/>
+            </linearGradient>
+          </defs>
+          <circle cx='60' cy='60' r='56' fill='url(%23g)' stroke='%23C9B458' stroke-width='3'/>
+          <path d='M30 70c30-10 46-28 60-45-10 22-25 42-60 55 18-2 34-8 50-18-9 14-24 24-50 28'
+                fill='none' stroke='%23C9B458' stroke-width='4' stroke-linecap='round'/>
+        </svg>" />
+    </header>
+
+    <main class="card" style="margin-top:16px;">
+      <form id="quiz">
+        <fieldset class="grid">
+          <!-- All binary 0/1 -->
+          <div class="q">
+            <label class="title">Wi-Fi reliability needed?</label>
+            <div class="options" data-name="wifi">
+              <label class="pill"><input type="radio" name="wifi" value="0"> 0 — Not crucial</label>
+              <label class="pill"><input type="radio" name="wifi" value="1"> 1 — Must be strong</label>
+            </div>
+            <div class="hint">Pick 0 or 1</div>
+          </div>
+
+          <div class="q">
+            <label class="title">Prefer to study outside?</label>
+            <div class="options" data-name="outside">
+              <label class="pill"><input type="radio" name="outside" value="0"> 0 — Indoors</label>
+              <label class="pill"><input type="radio" name="outside" value="1"> 1 — Outdoors</label>
+            </div>
+          </div>
+
+          <div class="q">
+            <label class="title">Stay central on campus?</label>
+            <div class="options" data-name="on_campus">
+              <label class="pill"><input type="radio" name="on_campus" value="0"> 0 — Off/edge OK</label>
+              <label class="pill"><input type="radio" name="on_campus" value="1"> 1 — Central, please</label>
+            </div>
+          </div>
+
+          <div class="q">
+            <label class="title">OK with ambient noise?</label>
+            <div class="options" data-name="noise">
+              <label class="pill"><input type="radio" name="noise" value="0"> 0 — Need silence</label>
+              <label class="pill"><input type="radio" name="noise" value="1"> 1 — Noise is fine</label>
+            </div>
+          </div>
+
+          <div class="q">
+            <label class="title">Group-study friendly?</label>
+            <div class="options" data-name="group">
+              <label class="pill"><input type="radio" name="group" value="0"> 0 — Solo</label>
+              <label class="pill"><input type="radio" name="group" value="1"> 1 — Group tables</label>
+            </div>
+          </div>
+
+          <div class="q">
+            <label class="title">Coffee nearby?</label>
+            <div class="options" data-name="coffee">
+              <label class="pill"><input type="radio" name="coffee" value="0"> 0 — Not needed</label>
+              <label class="pill"><input type="radio" name="coffee" value="1"> 1 — Yes please</label>
+            </div>
+          </div>
+
+          <div class="q">
+            <label class="title">Food nearby?</label>
+            <div class="options" data-name="food">
+              <label class="pill"><input type="radio" name="food" value="0"> 0 — Not needed</label>
+              <label class="pill"><input type="radio" name="food" value="1"> 1 — Helpful</label>
+            </div>
+          </div>
+
+          <div class="q">
+            <label class="title">Plenty of outlets?</label>
+            <div class="options" data-name="outlet">
+              <label class="pill"><input type="radio" name="outlet" value="0"> 0 — Few OK</label>
+              <label class="pill"><input type="radio" name="outlet" value="1"> 1 — Many needed</label>
+            </div>
+          </div>
+
+          <div class="q">
+            <label class="title">Big desk/table space?</label>
+            <div class="options" data-name="desk">
+              <label class="pill"><input type="radio" name="desk" value="0"> 0 — Minimal fine</label>
+              <label class="pill"><input type="radio" name="desk" value="1"> 1 — Lots of space</label>
+            </div>
+          </div>
+
+          <div class="q">
+            <label class="title">Prefer modern over cozy?</label>
+            <div class="options" data-name="cozy_or_modern">
+              <label class="pill"><input type="radio" name="cozy_or_modern" value="0"> 0 — Cozy</label>
+              <label class="pill"><input type="radio" name="cozy_or_modern" value="1"> 1 — Modern</label>
+            </div>
+          </div>
+
+          <!-- Aesthetic appeal: 1–5 (no slider; segmented buttons) -->
+          <div class="q">
+            <label class="title">Aesthetic appeal (1–5)</label>
+            <div class="options" data-name="aesthetic">
+              <label class="pill"><input type="radio" name="aesthetic" value="1"> 1</label>
+              <label class="pill"><input type="radio" name="aesthetic" value="2"> 2</label>
+              <label class="pill"><input type="radio" name="aesthetic" value="3" checked> 3</label>
+              <label class="pill"><input type="radio" name="aesthetic" value="4"> 4</label>
+              <label class="pill"><input type="radio" name="aesthetic" value="5"> 5</label>
+            </div>
+           
+        </fieldset>
+
+        <div style="display:flex; gap:12px; align-items:center; margin-top:18px;">
+          <button id="submitBtn" type="submit" disabled>Find my spots</button>
+          <span id="dataState" class="pill-mini">Loading spot data…</span>
         </div>
-        <div class="question">
-            <label>2. Which command automatically updates <code>package-lock.json</code>?</label><br>
-            <input type="radio" name="q2" value="a"> npm install<br>
-            <input type="radio" name="q2" value="b"> npm start<br>
-            <input type="radio" name="q2" value="c"> npm run build<br>
-        </div>
-        <div class="question">
-            <label>3. True or False: <code>package-lock.json</code> should be committed to version control.</label><br>
-            <input type="radio" name="q3" value="a"> True<br>
-            <input type="radio" name="q3" value="b"> False<br>
-        </div>
-        <div class="question">
-            <label>4. What information does <code>package-lock.json</code> contain?</label><br>
-            <input type="radio" name="q4" value="a"> Only direct dependencies<br>
-            <input type="radio" name="q4" value="b"> All dependencies and their exact versions<br>
-            <input type="radio" name="q4" value="c"> Only scripts<br>
-        </div>
-        <button type="button" onclick="checkAnswers()">Submit</button>
-        <div class="result" id="result"></div>
-    </form>
-    <script>
-        function checkAnswers() {
-            const answers = {
-                q1: 'b',
-                q2: 'a',
-                q3: 'a',
-                q4: 'b'
-            };
-            let score = 0;
-            for (let q in answers) {
-                const selected = document.querySelector(`input[name="${q}"]:checked`);
-                if (selected && selected.value === answers[q]) score++;
-            }
-            document.getElementById('result').textContent = `You scored ${score} out of 4.`;
+      </form>
+
+      <div id="results" class="results"></div>
+    </main>
+
+    </footer>
+  </div>
+
+  <!-- Papa Parse -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+  <script>
+    let studySpots = [];
+    let csvLoaded = false;
+
+    // helper: decorate pills when selected
+    function syncPillStates(container){
+      const labels = container.querySelectorAll('.pill');
+      labels.forEach(l => l.dataset.checked = l.querySelector('input').checked ? 'true' : 'false');
+    }
+    // initialize pill behavior (event delegation)
+    document.addEventListener('change', (e)=>{
+      if(e.target && e.target.matches('.options input[type="radio"]')){
+        const box = e.target.closest('.options');
+        syncPillStates(box);
+      }
+    });
+    // on load, mark defaults
+    window.addEventListener('DOMContentLoaded', ()=>{
+      document.querySelectorAll('.options').forEach(syncPillStates);
+    });
+
+    Papa.parse("study_spots.csv", {
+      download: true,
+      header: true,
+      dynamicTyping: true,
+      complete: function (results) {
+        studySpots = results.data.filter(r => r && r.name);
+        csvLoaded = true;
+        document.getElementById("submitBtn").disabled = false;
+        const ds = document.getElementById("dataState");
+        ds.textContent = "Data loaded ✓";
+        ds.style.background = "#e8f7ef";
+        ds.style.color = "#1e7d5c";
+      },
+      error: function (err) {
+        document.getElementById("dataState").textContent = "Failed to load CSV";
+        console.error(err);
+      }
+    });
+
+    // util: read a number from selected radio group
+    function getNumber(name){
+      const checked = document.querySelector(`input[name="${name}"]:checked`);
+      return checked ? parseFloat(checked.value) : NaN;
+    }
+
+    document.getElementById("quiz").onsubmit = function(e){
+      e.preventDefault();
+      if(!csvLoaded || !studySpots.length){
+        alert("Still loading study spot data. Try again in a moment.");
+        return;
+      }
+
+      const userAnswers = {
+        wifi: getNumber("wifi"),
+        outside: getNumber("outside"),
+        on_campus: getNumber("on_campus"),
+        noise: getNumber("noise"),
+        group: getNumber("group"),
+        coffee: getNumber("coffee"),
+        food: getNumber("food"),
+        outlet: getNumber("outlet"),
+        desk: getNumber("desk"),
+        cozy_or_modern: getNumber("cozy_or_modern"),
+        aesthetic: getNumber("aesthetic"), // 1–5
+      };
+
+      const topSpots = findBestSpots(studySpots, userAnswers);
+      showResults(topSpots, userAnswers);
+      window.scrollTo({ top: document.getElementById("results").offsetTop - 16, behavior: "smooth" });
+    };
+
+    // Scoring unchanged — works with 0/1 & 1–5
+    function scoreSpot(spot, userAnswers) {
+      const scores = [];
+      for (let key in userAnswers) {
+        if (Object.prototype.hasOwnProperty.call(userAnswers, key) && Object.prototype.hasOwnProperty.call(spot, key)) {
+          const userValue = Number(userAnswers[key]);
+          const spotValue = Number(spot[key]);
+          if (Number.isFinite(userValue) && Number.isFinite(spotValue)) {
+            const diff = Math.abs(userValue - spotValue);
+            const maxVal = Math.max(userValue, spotValue, 1);
+            const similarity = 1 - (diff / maxVal);
+            scores.push(similarity);
+          }
         }
-    </script>
+      }
+      const total = scores.reduce((sum, s) => sum + s, 0);
+      return scores.length > 0 ? total / scores.length : 0;
+    }
+
+    function findBestSpots(spots, userAnswers){
+      return spots
+        .map(spot => ({ spot, score: scoreSpot(spot, userAnswers) }))
+        .sort((a,b) => b.score - a.score)
+        .slice(0,3)
+        .map(s => s.spot);
+    }
+
+    function showResults(spots, userAnswers){
+      const resultsDiv = document.getElementById("results");
+      if(!spots.length){ resultsDiv.innerHTML = "<p>No results — check your CSV.</p>"; return; }
+
+      const list = spots.map((s, idx) => {
+        const prettyScore = (scoreSpot(s, userAnswers) * 100).toFixed(0);
+        return `
+          <div class="result-card">
+            <h3>${idx+1}. ${s.name}</h3>
+            <div class="hint">Match score: <span class="score">${prettyScore}%</span></div>
+            <div style="margin-top:8px;">
+              ${badgeIf("Wi-Fi", s.wifi)}
+              ${badgeIf("Noise ok", s.noise)}
+              ${badgeIf("Outlets", s.outlet)}
+              ${badgeIf("Group", s.group)}
+              ${badgeIf("Coffee", s.coffee)}
+              ${badgeIf("Food", s.food)}
+              ${badgeIf("Aesthetic", s.aesthetic)}
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      resultsDiv.innerHTML = `<h2 style="margin:0 0 10px 0;color:var(--green-950)">Top matches</h2><div class="grid">${list}</div>`;
+    }
+
+    function badgeIf(label, val){
+      if (val === undefined || val === null || val === "") return "";
+      return `<span class="pill-mini">${label}: ${Number(val)}</span>`;
+    }
+  </script>
 </body>
 </html>
