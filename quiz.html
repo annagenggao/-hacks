@@ -35,10 +35,10 @@
     header h1{ margin:6px 0 6px; font-size:2rem; color:var(--green-950); letter-spacing:.2px; }
     header p{ margin:0; color:#2c5f4e }
     .badge{
-      display:inline-block;
-      background: linear-gradient(180deg, var(--green-800), var(--green-950));
-      color:#fff; padding:6px 12px; border-radius:999px; font-weight:700; font-size:.9rem;
-      box-shadow: 0 8px 22px rgba(6,39,31,.28); border:1px solid rgba(201,180,88,.45);
+  display:inline-block;
+  background: linear-gradient(180deg, var(--green-800), var(--green-950));
+  color:#fff; padding:14px 32px; border-radius:999px; font-weight:800; font-size:1.5rem;
+  box-shadow: 0 8px 22px rgba(6,39,31,.28); border:2px solid rgba(201,180,88,.55);
     }
     .grid{ display:grid; gap:18px; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); }
     fieldset{ border:none; margin:0; padding:0; }
@@ -92,20 +92,14 @@
         <h1>Find your perfect study spot at William & Mary</h1>
         <p>Binary prefs, golden results: click choices below, then we’ll match you to campus study spots.</p>
       </div>
-      <img alt="logo" src="lock in locator logo.jpeg",
-        <svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'>
-          <defs>
-            <linearGradient id='g' x1='0' x2='0' y1='0' y2='1'>
-              <stop offset='0%' stop-color='%23104F3A'/><stop offset='100%' stop-color='%2306271F'/>
-            </linearGradient>
-          </defs>
-          <circle cx='60' cy='60' r='56' fill='url(%23g)' stroke='%23C9B458' stroke-width='3'/>
-          <path d='M30 70c30-10 46-28 60-45-10 22-25 42-60 55 18-2 34-8 50-18-9 14-24 24-50 28'
-                fill='none' stroke='%23C9B458' stroke-width='4' stroke-linecap='round'/>
-        </svg>" />
-    </header>
+<img alt="Lock-In Locator logo featuring bold black text lock in locator over a tan arch background, with a white pen illustration crossing the words. The design is modern and inviting, evoking a sense of focus and creativity in a calm study environment. Text in the image: lock in locator." src="lock in arch.png" style="width:120px; height:auto;" />
 
     <main class="card" style="margin-top:16px;">
+      <div id="results" class="results"></div>
+    </main>
+
+    <!-- Move quiz form to bottom of page -->
+    <main class="card" style="margin-top:32px;">
       <form id="quiz">
         <fieldset class="grid">
           <!-- All binary 0/1 -->
@@ -208,13 +202,7 @@
           <span id="dataState" class="pill-mini">Loading spot data…</span>
         </div>
       </form>
-
-      <div id="results" class="results"></div>
     </main>
-
-   
-
-  </div>
 
   <!-- Papa Parse -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
